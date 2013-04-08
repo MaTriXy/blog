@@ -1,0 +1,107 @@
+---
+layout: post
+title: Installing Redmine in a Shared cPanel Environment
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+---
+After experiencing the joys of no project management (i.e. rewrite after rewrite) I decided it was time to look into some open source, web based project management solutions. After searching the interweb, not only at what people were saying but also at what other projects were using, I decided to give the Ruby on Rails application <a href="http://www.redmine.org/">Redmine</a> a try. With an extensive feature list, decent support, and the all important ability to host multiple projects, this seemed like a good choice.
+
+I ran into some difficulties, however, when I tried to actually install Redmine. See, I’m a poor college student and can’t afford fancy virtual private server hosting, I’ve got the standard, cheap, shared hosting, like many others. This means no root access, no compiling and update the ruby or rails binaries, and certainly no server wide changes.
+
+Today I finally got Redmine installed, and it was actually quite simple, it was just a matter of putting together the different pieces of information I found on the web and making it work in my environment. Because I wasn’t able to find one coherent guide, I decided to write one up.
+<h2>Prerequisites</h2>
+To use this guide, you do need a Linux based <a href="http://www.networkredux.com/" target="_blank">host</a> running cPanel. Any Linux host should work, but where I use cPanel to setup the Rails app you will need to figure it out for your environment.
+
+You will also need support for Ruby on Rails applications. I think this comes pretty standard with most hosting packages, but if you have a limited plan you will have to double check.
+
+The last thing you will need is shell (also called ssh) access to your host. I was able to just email support for my host and ask for ssh access and they gave it to me within an hour.
+<h2>Let’s get started…</h2>
+The first thing we need to do it set up our database.
+<br/>
+1. Log into cPanel and go into the database management area (I’ll be using MySQL).
+<br/>
+2. Add a new database named “redmine”. This will actually result in a database named “username_redmine”. That’s just fine.
+<br/>
+3. Now create a new user to access this database. For simplicity I created a user named “redmine” (which resulted in a user named “username_redmine”) with a password of “redmine”.
+<br/>
+4. Next you will need to give the redmine user access to the redmine database. This is done in the “Add User to Database” section. Just select the “username_redmine” database in the User drop down and then “username_redmine” in the Database dropdown. Then click Add.
+<br/>
+5. On the next page, check the box that says “All Privileges” and click Make Changes.
+<br/>
+Now that your database is set up, lets get the Ruby on Rails application working.
+<br/>
+6. Go back to the cPanel Home and then into the Ruby on Rails section.
+<br/>
+7. Create a new Rails application by entering “redmine” into the App Name box, select “Load on boot?”, and then click Create. Make a note of the path for the application, for me it was ~/rails_apps/redmine (with the ~ represented by a house icon). We’ll use this very soon.
+<br/>
+8. If the status of the added application is “Running” just click the Stop button to stop it.
+<br/>
+Now it’s time to dive into the shell.
+<br/>
+9. First you will need to ssh into your host. If you are on a Linux or Mac you can just open up the Terminal application (if you’re on a Mac it’s found in /Applications/Utilities, if you’re on Linux you know where it is) and type ‘ssh &lt;username&gt;@&lt;hostname&gt;’ without the quotes, and replacing &lt;username&gt; with your username and &lt;hostname&gt; with your host name. Then enter your password. (For me this equates to ‘ssh rharter@ryanharter.com’)
+<br/>
+10. Remember that path I told you to take note of earlier, now we’re going to change to that directory.
+<pre>cd ~/rails_apps/redmine/</pre>
+11. Now that we’re there, delete the contents of this directory. <span style="color: #ff0000;">Note: This command can be very damaging if you’re in the wrong directory, it will delete everything in it’s way without asking and there is no taking it back. Just make sure you are in the right directory and you will be fine.</span>
+<pre>rm -rf *</pre>
+12. Now before we download Redmine, we have to check which version of ruby and rails we have. Run the following commands.
+<pre>ruby -v
+rails -v</pre>
+For me this showed a ruby version of 1.8.7 and rails version 2.3.3.
+<br/>
+13. Now, head on over to <a href="http://www.redmine.org/wiki/redmine/RedmineInstall">http://www.redmine.org/wiki/redmine/RedmineInstall</a> and use the table to figure out which version of Redmine you need. This is where I ran into trouble the first time. Since my Rails version is slightly outdated I was forced to go with trunk version r2886, which equates to stable version 0.8.7. Just download the latest version you need as a tar.gz archive.
+<br/>
+14. Copy the downloaded Redmine up to your host using your favorite <a href="http://panic.com/transmit/">FTP client</a> (or scp if you are a more advanced user) and place it in your home folder.
+<br/>
+15. Back in your ssh console (which should still be in the ~/rails_apps/redmine directory), copy the redmine tar.gz (redmine-0.8.7.tar.gz for me) to your ~/rails_apps/redmine folder.
+<pre>cp ~/redmine-0.8.7.tar.gz ./</pre>
+16. Now extract the archive.
+<pre>tar xvzf redmine-0.8.7.tar.gz</pre>
+17. Since we don’t want a subdirectory, we move into the folder that is created (the name depends on the version you chose) and move the contents out, then we can remove the empty directory. While we’re here, we can also remove the tarball (tar.gz archive)
+<pre>cd redmine-0.8.7
+mv * ..
+cd ..
+rmdir redmine-0.8.7
+rm redmine-0.8.7.tar.gz</pre>
+<h2>Config, Config…</h2>
+18. We have to modify the config files a bit for Redmine to work properly. First open up the config/environment.rb file in your favorite text editor and comment out the line that says “RAILS_GEM_VERSION = ’2.1.2′ unless defined? RAILS_GEM_VERSION” by putting a # in front of it.
+<pre>nano config/environment.rb
+&lt;comment the line, then hit ctrl-o to save and crtl-x to exit&gt;</pre>
+19. Now copy the config/database.yml.example file to config/database.yml.
+<pre>cp config/database.yml.example config/database.yml</pre>
+20. Next we need to edit that file to user our database. If you didn’t use a MySQL database this may differ for you and you will need to consult to Redmine Installation manual for examples.
+<pre>nano config/database.yml
+=== Edit production section to look like below, supplying your settings from earlier ===
+production:
+  adapter: mysql
+  database: username_redmine
+  host: localhost
+  username: username_redmine
+  password: redmine
+  encoding: utf8</pre>
+You should only need to edit the database, username, and password lines.
+<br/>
+21. Redmine stores information in cookies, so a session store needs to be set up. This also differs if you are using a different version of Redmine, so just check the manual. <span style="color: #0000ff;">Note: There isn’t a config/initializers/session_store.rb file, but don’t worry about it, just type the command and it will do it’s thing. This confused me for a good hour.</span>
+<pre>RAILS_ENV=production rake config/initializers/session_store.rb</pre>
+22. We’re almost there, now we just need to setup the tables in the database and populate it with default data.
+<pre>RAILS_ENV=production rake db:migrate
+RAILS_ENV=production rake redmine:load_default_data</pre>
+<h2>Back to cPanel!</h2>
+23. I would suggest creating a Rewrite for your Redmine install. This allows you to use a directory name (or even a subdomain) to access your Redmine install, as opposed to having to type a url like http://www.mydomain.com:12001/. To do this, go back to the Ruby on Rails section of your cPanel page. Second from the bottom, click Create Rewrite for your redmine application.
+<br/>
+24. Either enter the directory name on the end of your url (if using a subdirectory) or select the proper subdomain and click Save.
+<br/>
+25. Now just click Start for the redmine application and you should be up and running.
+<br/>
+26. For the rewrite to work properly in all cases, we need to go back to the shell and make one more edit. Whichever directory you decided to have the rewrite use, whether it be for a subdomain or just a directory, there should be a .htaccess file. For me this was located at /home/rharter/public_html/baby/.htaccess. Open that file in your favorite text editor and copy the last line that says RewriteRule ^/?$ “http\:\/\/127\.0\.0\.1\:12012%{REQUEST_URI}” [P,QSA,L] byt change the ^/?$ to ^(.*)$.
+<pre>nano /home/rharter/public_html/baby/.htaccess
+&lt;add the line&gt;
+ctrl-o (Save)
+ctrl-x (Exit)</pre>
+27. Your last step is to just point your browser to the url you are using and you should find a fully working Redmine install.
+<br/>
+And that’s all there is to it. Seems like a lot of steps, but overall it’s pretty straight forward. Now if only the project that need managing were that straight forward.

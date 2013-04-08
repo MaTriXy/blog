@@ -1,0 +1,93 @@
+---
+layout: post
+title: JSP/Servlet Authentication with Hibernate
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+---
+The web is full of tutorials about setting up Java Web App authentication using j_security_check, but <a href="http://download.oracle.com/javaee/1.4/tutorial/doc/Security5.html" target="_blank">they</a> mostly only cover authenticating users which are stored in an xml file on the server.  While this has it’s uses, it’s really not practical for enterprise applications.  Enterprise apps need more robust user management than can be accomplished with an xml file. Enter SQL and Hibernate.
+<h2>The Hibernate Model</h2>
+When it came time for me to set up database authentication, the most difficult part was figuring out how to create my <a href="http://www.hibernate.org/" target="blank">Hibernate</a> model objects such that I could use them with j_security_check. It was obvious that I need to create a User and Group class and give them a many-to-many association, but the problem is that Hibernate translates that association into SQL the same way many DBAs would, with a join table containing the primary keys for each object. This is fine if you make the username and group name the primary keys, but I prefer to have auto incremented ids. The solution is to force Hibernate to build this join table using the properties you want the user to log in with.
+
+After creating the <a href="http://en.wikipedia.org/wiki/Plain_Old_Java_Object" target="_blank">POJO</a> User and Group classes, I added the <a href="http://docs.jboss.org/hibernate/stable/annotations/reference/en/html_single/" target="_blank">annotations</a> required by Hibernate. I chose annotations because of the convenience of having all of the markup in one file instead of having to modify two files every time I want to make a change.
+
+Each class needs very similar annotations to ensure that the join table gets created in a useful fashion. We just need to specify the name of the join table, the names of the columns, and the names of the properties that those columns reference on each object. This ensures that the join table will not be built with the object’s id value, but rather the username and group name.
+
+User.java
+<pre title="User.java">@ManyToMany(cascade = { CascadeType.ALL })
+@JoinTable(name = "User_Group",
+	joinColumns = { @JoinColumn(name = "user", referencedColumnName = "username") },
+	inverseJoinColumns = { @JoinColumn(name = "groupname", referencedColumnName = "name") })</pre>
+Group.java
+<pre>@ManyToMany(cascade = { CascadeType.ALL })
+@JoinTable(name = "User_Group",
+	inverseJoinColumns = { @JoinColumn(name = "user", referencedColumnName = "username") },
+	joinColumns = { @JoinColumn(name = "groupname", referencedColumnName = "name") })</pre>
+<h3><span style="color: #ff0000;">Note</span></h3>
+Make sure you add a @Table(name = “groupp”) annotation to the group table. That extra ‘p’ isn’t a typo, without it Hibernate won’t be able to create the table since “group” is a reserved word in SQL (at least in <a href="http://www.mysql.com/" target="_blank">MySQL</a>).
+<h2>The Error Servlet</h2>
+The j_security_check mechanism requires us to supply a login error page.  This, obviously, is where the user is directed if there is an error with their credentials.  This can be useful, but most apps and websites tend to redirect you back to the login page and simply display an error message, allowing the user to try again.  This is the functionality that we are going to emulate using a servlet and redirects.  All we need here is a servlet which redirects the user to the landing page with a URL parameter.
+<pre title="LoginError.java">protected void doPost(HttpServletRequest request, HttpServletResponse response)
+throws ServletException, IOException {
+	response.sendRedirect(request.getContextPath() + "/manage/listGroupsUsers.jsp?loginerror=true");
+}</pre>
+<h3><span style="color: #ff0000;">A note about the redirect</span></h3>
+You may be tempted to make the error page redirect the user directly to the login page. Don’t. j_security_check works by intercepting the user’s request of a secured resource and redirecting the user to that resource after authentication is complete. Accessing the login page directly will allow the user to authenticate, but the user will be redirected to the login page. This can be quite confusing and should be avoided unless you implement a login page which checks for an active session and does something different once the user is authenticated.
+<h2>The Login Page</h2>
+The two servlets we just created utilize the fact that when j_security_check forwards the request to the login screen, the parameters are also forwarded. So all we have to do is implement our login screen to handle that parameter in addition to containing the login form.
+<pre>&lt;%  // Print error message
+    String error = request.getParameter("loginerror");
+    if (error != null &amp;&amp; error.equals("true")) {
+%&gt;
+    &lt;span&gt;Invalid username or password.&lt;/span&gt;
+&lt;% } %&gt;
+
+&lt;%-- Login Form --%&gt;
+&lt;form action="j_security_check" method="post"&gt;
+	&lt;table&gt;
+		&lt;thead&gt;
+			&lt;tr&gt;
+				&lt;td colspan="2"&gt;Login&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/thead&gt;
+		&lt;tr&gt;
+			&lt;td align="right"&gt;Username:&lt;/td&gt;
+			&lt;td&gt;&lt;input type="text" name="j_username" /&gt;&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td align="right"&gt;Password:&lt;/td&gt;
+			&lt;td&gt;&lt;input type="password" name="j_password" /&gt;&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt; &lt;/td&gt;
+			&lt;td&gt;&lt;input type="submit" value="Login" /&gt;&lt;td&gt;
+		&lt;/tr&gt;
+	&lt;/table&gt;
+&lt;/form&gt;</pre>
+<h2>The web.xml File</h2>
+The last two changes we need to make are to the web.xml file. First we need to tell Tomcat we want to use forms authentication and tell it which forms (pages) to use. This is handled with the login-config element.
+<pre>&lt;login-config&gt;
+  &lt;auth-method&gt;FORM&lt;/auth-method&gt;
+  &lt;form-login-config&gt;
+    &lt;form-login-page&gt;/login.jsp&lt;/form-login-page&gt;
+    &lt;form-error-page&gt;/loginError&lt;/form-error-page&gt;
+  &lt;/form-login-config&gt;
+&lt;/login-config&gt;</pre>
+The next step is to tell Tomcat which resources are protected and which role is required to access them. This is done with the security-constraint element. Be sure to replace the blue items with relevant values.
+<pre>&lt;security-constraint&gt;
+  &lt;web-resource-collection&gt;
+    &lt;web-resource-name&gt;User Management&lt;/web-resource-name&gt;
+    &lt;description&gt;Accessible only to admins&lt;/description&gt;
+    &lt;url-pattern&gt;<span style="color: #0000ff;">/manage/*</span>&lt;/url-pattern&gt;
+  &lt;/web-resource-collection&gt;
+  &lt;auth-constraint&gt;
+    &lt;description&gt;These are the roles with access&lt;/description&gt;
+    &lt;role-name&gt;<span style="color: #0000ff;">manager</span>&lt;/role-name&gt;
+    &lt;role-name&gt;<span style="color: #0000ff;">root</span>&lt;/role-name&gt;
+  &lt;/auth-constraint&gt;
+&lt;/security-constraint&gt;</pre>
+<h2>All Done</h2>
+And that’s all there is to it. You now have a protected web app using the “not-quite-free-but-close” j_security_check and the all powerful Hibernate. Play around with this code and if you find some better solutions feel free to share them in the comments.

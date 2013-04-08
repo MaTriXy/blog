@@ -1,0 +1,22 @@
+---
+layout: post
+title: Google Releases Android 4.2 Jelly Bean Factory Images
+tags: []
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+---
+<img class="aligncenter" title="Jelly Bean" src="https://s3.amazonaws.com/ryanharter-com-wordpress/images/jelly-bean.png" alt="Jelly Bean" width="374" height="300" />
+
+With the launch of the Nexus 4, Google has released the Jelly Bean 4.2 factory image for the Galaxy Nexus.  Though there have been <a href="http://bgr.com/2012/11/13/nexus-devices-android-4-2-upgrade/" target="_blank">reports</a> of Galaxy Nexus users getting OTA updates, some just don't want to wait.  You can download it from <a title="Factory Images for Nexus Devices" href="https://developers.google.com/android/nexus/images#takju" target="_blank">here</a>.  Installation is pretty simple, just follow these steps.
+<ol>
+	<li>Download the factory image for your device <a title="Factory Images for Nexus Devices" href="https://developers.google.com/android/nexus/images" target="_blank">here</a>. (GSM Galaxy Nexus = yakju/takju, Verizon Galaxy Nexus = toro, Sprint Galaxy Nexus = toroplus)</li>
+	<li>Ensure fastboot is in your path. On Mac and Linux you can do this by running `PATH=$PATH:/path/to/android-sdk/platform-tools` in the Terminal.</li>
+	<li>Plug your phone into your USB port and unlock your bootloader with `fastboot oem unlock`.</li>
+	<li>Boot your phone into fastboot mode by holding down both volume keys and pressing the power button to turn on the phone.  Alternatively you can use `adb reboot bootloader` in the Terminal to reboot your phone in fastboot.</li>
+	<li>From the extracted download directory, run `./flash-all.sh` to flash the rom to your phone.</li>
+	<li>Lock your boot loader with `fastboot oem lock`.</li>
+</ol>
+Keep in mind that flashing the factory image to your phone will <span style="color: #ff0000;">delete all user data</span> by default, so back up your phone.

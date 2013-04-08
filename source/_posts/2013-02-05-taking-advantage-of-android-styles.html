@@ -1,0 +1,95 @@
+---
+layout: post
+title: Taking Advantage of Android Styles
+tags:
+- Android
+- Android Snippets
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  wpzoom_post_template: ''
+  _thumbnail_id: '145'
+---
+<a href="http://www.ryanharter.com/wp-content/uploads/2013/02/Styles.png"><img class="aligncenter size-full wp-image-145" alt="Styles" src="http://www.ryanharter.com/wp-content/uploads/2013/02/Styles.png" width="365" height="300" /></a>
+
+One of the biggest differences between a good app and a great app is a consistent UI.  This can often be a difficult thing to accomplish when you consider how we, as developers, work on apps.  We tend to work on one screen at a time and, for lone developers, that can often lead to making minor changes as we work on the app and think of cool new things.
+
+Fortunately, Android has facilities that make it super easy to get a unified style throughout your app and actually reduces the amount of code you have to write.
+<h2>The Layout</h2>
+Lets start out by looking at the layout.  Through no fault of my own, my designer showed the client grouped text entry fields and she loved it.  So now I'm developing an app with custom non-Holo EditText fields everywhere and I have to make sure they look great.
+
+This is easily achieved with Styles.  Check out how easy it makes the layout code for the app in the screenshot above.
+<pre class="brush:xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#eee"&gt;
+
+    &lt;!-- Input Group --&gt;
+    &lt;EditText style="@style/Widget.Group.Top" /&gt;
+    &lt;EditText style="@style/Widget.Group" /&gt;
+    &lt;EditText style="@style/Widget.Group.Bottom" /&gt;
+
+    &lt;!-- Single item --&gt;
+    &lt;EditText style="@style/Widget.Group.Single" /&gt;
+
+&lt;/LinearLayout&gt;</pre>
+This is a simple example, but you can see that the layout consists of nothing but styled EditText fields.
+<h2>The Styles</h2>
+Now lets take a look at the styles for this.  You could easily achieve that layout by setting a background image on each edit text, along with the size and margins, but to make sure all grouped text fields throughout the app look great, and the same, you should extract these attributes into Styles.  As you can see in the code, we define the style for Widget.Groups in styles, and then all we have to do in the layout is set the appropriate style and we will always have a consistent layout.
+<pre class="brush:xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;resources&gt;
+	&lt;style name="Widget.Group" parent="@android:style/Widget"&gt;
+		&lt;item name="android:layout_width"&gt;match_parent&lt;/item&gt;
+		&lt;item name="android:layout_height"&gt;46dp&lt;/item&gt;
+		&lt;item name="android:layout_marginLeft"&gt;10dp&lt;/item&gt;
+		&lt;item name="android:layout_marginRight"&gt;10dp&lt;/item&gt;
+		&lt;item name="android:layout_marginTop"&gt;-1dp&lt;/item&gt; &lt;!-- Ensures we don't get a 2 dp top stroke --&gt;
+		&lt;item name="android:padding"&gt;4dp&lt;/item&gt;
+		&lt;item name="android:background"&gt;@drawable/bg_input_group&lt;/item&gt;
+	&lt;/style&gt;
+
+	&lt;style name="Widget.Group.Top"&gt;
+		&lt;item name="android:layout_marginTop"&gt;10dp&lt;/item&gt;
+		&lt;item name="android:background"&gt;@drawable/bg_input_group_top&lt;/item&gt;
+	&lt;/style&gt;
+
+	&lt;style name="Widget.Group.Bottom"&gt;
+		&lt;item name="android:background"&gt;@drawable/bg_input_group_bottom&lt;/item&gt;
+	&lt;/style&gt;
+
+	&lt;style name="Widget.Group.Single" parent="Widget.Group.Top"&gt;
+		&lt;item name="android:background"&gt;@drawable/bg_input_group_single&lt;/item&gt;
+	&lt;/style&gt;
+&lt;/resources&gt;</pre>
+<h3>Implicit Inheritance</h3>
+One of the great things about Android's Style resources is inheritance.  As you can see in the code above, we use a base Widget.Group style, which inherits from the base Widget style in Android.  This will set the height of all of the fields, also the horizontal margins and background for a standard widget.  This background is for widgets nested within a group (i.e. the middle row) and includes the white background and gray border.
+<pre class="brush:xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;shape xmlns:android="http://schemas.android.com/apk/res/android"
+	android:shape="rectangle"&gt;
+
+	&lt;solid android:color="@android:color/white" /&gt;
+
+	&lt;stroke android:width="1dp"
+		android:color="#ccc" /&gt;
+
+&lt;/shape&gt;</pre>
+The styles for Top and Bottom widgets inherit from Widget.Group implicitly due to the dot namespacing.  This is a little known (at least to me before writing this article) secret that is nice for saving some typing time but can cause problems if you aren't careful with your packages (notice how Widget.Group needs to explicitly have the "@android:style/Widget" parent since it's in a different package).
+
+As you can see, for the top and bottom fields, this inheritance help us keep things consistent because all we have to change is the background image and margins.
+<h3>Explicit Inheritance</h3>
+The "Widget.Group.Single" is a great example of explicit inheritance.  In this case it would be confusing to call the style "Widget.Group.Top.Single" but we want to inherit the top group margins of the Top cell to keep things consistent.  We do this by explicitly defining the inheritance of a style using the "parent" attribute.
+<pre class="brush:xml">...
+&lt;style name="Widget.Group.Single" parent="Widget.Group.Top"&gt;
+	&lt;item name="android:background"&gt;@drawable/bg_input_group_single&lt;/item&gt;
+&lt;/style&gt;
+...</pre>
+<h2>Use Style</h2>
+As tempting as it can be to skip styles and just copy and paste attributes throughout your UI, I would encourage everyone to use styles instead.  Not only does it make it super easy to make slight changes, but you can also use Android's Resource Engine to easily define styles for different platforms and ensure that you will have a consistent look and feel throughout your app.  This will make users feel more comfortable navigating your app and really gives it that high level of polish.
+<h4>Resources</h4>
+Download the sample project - <a href="http://www.ryanharter.com/wp-content/uploads/2013/02/styles.zip">Source Code
+</a>Read the docs - <a title="Style Resource Guide" href="http://developer.android.com/guide/topics/resources/style-resource.html" target="_blank">Style Resource Guide
+</a>Reference the source of Android's built in styles - <a title="Android Open Source Project styles.xml" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/styles.xml" target="_blank">AOSP Styles.xml</a>

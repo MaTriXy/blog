@@ -1,0 +1,80 @@
+---
+layout: post
+title: How to Make an Android Card List
+tags:
+- Android
+- Android Snippets
+- Card
+- Code
+- Google Now
+- ListView
+- Snippet
+- Tips and Tricks
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  wpzoom_post_template: ''
+  _thumbnail_id: '102'
+---
+<a href="http://www.ryanharter.com/wp-content/uploads/2013/01/cards_feature.jpeg"><img class="aligncenter size-full wp-image-102" alt="cards_feature" src="http://www.ryanharter.com/wp-content/uploads/2013/01/cards_feature.jpeg" width="500" height="246" /></a>
+
+Ever since the launch of Google Now more than six months ago the Card View that it made famous has been kind of a big deal.  It makes sense, we Android users spent many years overlooking the lack of style on Android, and arguing over whether that was even important.  Now Android is finally getting a sense of style with the Holo theme, the the Card View plays into that amazingly.
+
+Google Now's cards have a lot of functionality, including stacking, swipe to remove, and much more.  If you're looking for that kind of functionality check out Nadav Fima's excellent <a title="CardsUI for Android" href="http://nadavfima.com/cardsui-view-library/" target="_blank">CardsUI</a> library.
+
+Adding a card look to your ListViews can really make them pop, and its much easier than you might think.
+<h2>Show Me the Code!</h2>
+All you need to do is add a background drawable to your list items. Create a file called bg_card.xml in your /res/drawable folder with the following content:
+<pre class="brush:xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;layer-list xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+	&lt;item&gt;
+		&lt;shape android:shape="rectangle"
+			android:dither="true"&gt;
+
+			&lt;corners android:radius="2dp"/&gt;
+
+			&lt;solid android:color="#ccc" /&gt;
+
+		&lt;/shape&gt;
+	&lt;/item&gt;
+
+	&lt;item android:bottom="2dp"&gt;
+		&lt;shape android:shape="rectangle"
+			android:dither="true"&gt;
+
+			&lt;corners android:radius="2dp" /&gt;
+
+			&lt;solid android:color="@android:color/white" /&gt;
+
+			&lt;padding android:bottom="8dp"
+				android:left="8dp"
+				android:right="8dp"
+				android:top="8dp" /&gt;
+		&lt;/shape&gt;
+	&lt;/item&gt;
+&lt;/layer-list&gt;</pre>
+Then, just set that drawable as the background for your row, and add some margins.
+<pre class="brush:xml">&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="?android:attr/listPreferredItemHeight"&gt;
+
+	&lt;LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" 
+		android:layout_marginLeft="6dp"
+		android:layout_marginRight="6dp"
+		android:layout_marginTop="4dp"
+		android:layout_marginBottom="4dp"
+		android:background="@drawable/bg_card"&gt;
+
+		&lt;!-- Card Contents go here --&gt;
+
+	&lt;/LinearLayout&gt;
+
+&lt;/FrameLayout&gt;</pre>
+That's all there is to it.  No graphic assets are required and now you've got a fast, Holo friendly card view.  You could also do use the same drawable for a grid view for a similar effect.
+<h2>Want something more?</h2>
+Mix it with <a title="Drag Sort ListView" href="https://github.com/bauerca/drag-sort-listview" target="_blank">Drag Sort ListView</a> if you want to enable reordering or swipe to delete (swipe to do anything really) or Nadav Fima's <a title="CardsUI for Android" href="http://nadavfima.com/cardsui-view-library/" target="_blank">CardsUI</a> if you want stacks and other advanced functionality.

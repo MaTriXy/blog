@@ -1,0 +1,42 @@
+---
+layout: post
+title: The Fragment Constructor
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '1'
+  wpzoom_post_template: ''
+---
+Fragments are a great addition to the Android APIs. They allow reusability of views, but they also make navigation, view pagers, and view interoperability easier.
+
+While they have many advantages, many developers still have difficulties working with them efficiently.  This is partially understandable as they have their own lifecycle, similar to an Activity's lifecycle, but with slight differences.  This, invariably, adds complication to an app.
+
+One of the mistakes that I've seen in many projects involves the Fragment constructor. Here is what the <a title="Fragment Android Developer Documentation" href="http://developer.android.com/reference/android/app/Fragment.html" target="_blank">documentation</a> has to say about the Fragment constructor.
+<blockquote>All subclasses of Fragment must include a public empty constructor. The framework will often re-instantiate a fragment class when needed, in particular during state restore, and needs to be able to find this constructor to instantiate it.</blockquote>
+I've seen many developers override the default constructor, much like you would in any other java class, to set contextual properties on their Fragments.  I believe this is due to the differences in the way Android handles views compared to other platforms.
+<h2>Android's View Handling</h2>
+Many platforms, including iOS and Desktop platforms, use a standard Model/View/Controller architecture which leads to a very particular navigation paradigm.  The general idea is that, when the user moves from one screen to another, the first screen will instantiate the next, set the appropriate properties on the second screen like selected artist, and then display the second screen.
+
+<a href="http://www.ryanharter.com/wp-content/uploads/2013/02/old_mvc_navigation.png"><img class="aligncenter size-full wp-image-149" alt="old_mvc_navigation" src="http://www.ryanharter.com/wp-content/uploads/2013/02/old_mvc_navigation.png" width="800" height="400" /></a>
+
+In the simple example above, in this older paradigm, when a user taps on an article in the Article List to the left, the Article List creates a new Article Detail Controller, sets it's articleUrl property, and then displays it.  This is extremely straightforward and easy to implement, but does have it's drawbacks.
+
+First of all, the first screen has to know quite a bit about the second.  In our simple example this isn't really an issue, but think about a more complicated view, like an email message, which has a bunch of information and possible properties to be set.  This kind of deep coupling also makes maintenance more difficult because if we change our detail screen, say to add commenting, we must then change every screen that navigates to it.
+
+Second, this doesn't lend well to the interoperability that Android was built around.  For instance, how would you share this article on Twitter if you don't have the default Twitter client installed.  The detail screen would have to know the details of every Twitter client in order to let you share ubiquitously across them all.  This is why sharing between applications, like Twitter and Google+ is so much easier in Android than in iOS, for example, where you have to use standard clients and can only share with who Apple allows (read: not Google+).
+<h2>How Android works</h2>
+Android supports view navigation quite differently.  While Android's methods are foreign to many desktop and mobile developers from other platforms, it should be quite familiar to web developers.
+
+In Android applications, when a user navigates from one screen to another, the first screen bundles up relevant information, like an article id or url, and sends it to the second screen.  The second screen, in turn, builds it self by retrieving the appropriate details from the bundled information.
+
+<a href="http://www.ryanharter.com/wp-content/uploads/2013/02/android_navigation.png"><img class="aligncenter size-full wp-image-150" alt="android_navigation" src="http://www.ryanharter.com/wp-content/uploads/2013/02/android_navigation.png" width="800" height="400" /></a>
+
+Looking at the same example as before, when a user taps on an article, the Article List screen just says "Hey, my user wants to VIEW an ARTICLE!"  It doesn't need to explicitly say how the viewing happens, but the Details screen is registered as having the ability to view that type of data and therefore is chosen to be displayed.  The Detail screen then builds itself based on the URI provided and is displayed by the system.
+
+I understand that in this simple example there isn't much difference, but this is actually quite powerful.  This is why Android asks you if you want to open links you click in email to Google+ in the Google+ app (if you have it installed) or in the browser, because they both have said that they can view that type of data.
+<h2>What does this have to do with Fragment Constructors?</h2>
+The truly important part of this background is that "Bundle" of information that is passed to the second screen.  What many people forget is that when you rotate your phone and the screen goes from portrait to landscape, Android actually builds an entirely new version of the same screen, passing it the same bundle, and then displays it.  This ensures a smooth transition between views.
+
+When developers override the Fragment constructor and use the tight coupling model of older MVC platforms, the system doesn't know how to build the new screen.
