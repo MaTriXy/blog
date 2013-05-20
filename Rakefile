@@ -6,9 +6,9 @@ require "stringex"
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
 ssh_user       = "rharter@ryanharter.com"
 ssh_port       = "22"
-document_root  = "/srv/www/blog.ryanharter.com/html/"
+document_root  = "/srv/www/ryanharter.com/public_html/"
 rsync_delete   = true
-rsync_args     = ""  # Any extra arguments to pass to rsync
+rsync_args     = "--chmod=u+rwX,g+rwX,o+rX,o-w"  # Any extra arguments to pass to rsync
 deploy_default = "rsync"
 
 # This will be configured for you when you run config_deploy

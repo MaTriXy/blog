@@ -1,7 +1,7 @@
 ---
 layout: post
 title: The case for Fragment Callbacks
-tags:
+categories:
 - Android
 - Android Snippets
 - Fragments
@@ -22,6 +22,9 @@ One of the obvious solutions is to cast the result of getActivity() to the appro
     ((MyActivity) getActivity()).chooseItem();
   }
 });</pre>
+
+<!-- more -->
+
 There are many problems with this approach, but the main one for me is that it completely negates the advantages of using Fragments.  This results in tightly coupled code since the Fragment can only really be a child of a single Activity, and any modification of the parent would require a modification of the Fragment.
 
 This is where callback interfaces come into play.  The recommended way to accomplish this parent notification, and the way Google does it in many of their apps, it using callback interfaces.  This is really nothing more than an Interface defined in the Fragment to be called when certain events occur.
