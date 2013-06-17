@@ -11,7 +11,7 @@ categories:
 
 At Google I/O this year, Google introduced it's new IDE, Android Studio.  Android Studio is based on IntelliJ IDEA, a great IDE that many of my Android friends use.
 
-{% img /images/posts/studio_splash.png %}
+{% img center /images/posts/studio_splash.png %}
 
 I wasn't particularly excited by this announcement because, for the last several years, I've given up IDEs.  My development environment of choice has been [Sublime Text 2](http://www.sublimetext.com/) and ant.
 
