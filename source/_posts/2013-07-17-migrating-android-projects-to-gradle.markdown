@@ -216,7 +216,7 @@ This is where all of the magic happens.  When you run `./gradlew build` from the
 	    }
 	}
 
-Things are relatively straight forward here, with teh exception of the `getVersionName` function.  For my projects, I use git tags for each release, and this just gets the latest git tag to set the version string in the manifest.  This is based on a great article [here](http://osteslag.tumblr.com/post/7769890357/using-build-and-version-numbers-and-the-art-of).
+Things are relatively straight forward here, with the exception of the `getVersionName` function.  For my projects, I use git tags for each release, and this just gets the latest git tag to set the version string in the manifest.  This is based on a great article [here](http://osteslag.tumblr.com/post/7769890357/using-build-and-version-numbers-and-the-art-of).
 
 Another thing to note is the `android.defaultConfig` section.  This is where you can set all of your requirements for the manifest that will automatically be set in the generated manifest.
 
