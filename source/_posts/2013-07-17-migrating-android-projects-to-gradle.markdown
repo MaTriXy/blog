@@ -4,6 +4,9 @@ title: "Migrating Android Projects to Gradle"
 date: 2013-07-17 08:36
 comments: true
 categories: 
+ - Android
+ - Gradle
+ - build
 ---
 {% img center /images/posts/gradle_logo.gif %}
 
