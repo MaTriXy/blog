@@ -4,6 +4,9 @@ title: "Impress Your Users"
 date: 2013-07-22 10:29
 comments: true
 categories: 
+ - Android
+ - Business
+ - Marketing
 ---
 
 {% img center /images/posts/taking-care-of-users/hashnote_ratings.png %}
