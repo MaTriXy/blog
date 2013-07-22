@@ -12,9 +12,12 @@ meta:
   wpzoom_post_template: ''
   _thumbnail_id: '145'
 ---
-<a href="http://www.ryanharter.com/wp-content/uploads/2013/02/Styles.png"><img class="aligncenter size-full wp-image-145" alt="Styles" src="http://www.ryanharter.com/wp-content/uploads/2013/02/Styles.png" width="365" height="300" /></a>
+
+{% img center /images/posts/taking-advantage-of-android-styles/styles.png %}
 
 One of the biggest differences between a good app and a great app is a consistent UI.  This can often be a difficult thing to accomplish when you consider how we, as developers, work on apps.  We tend to work on one screen at a time and, for lone developers, that can often lead to making minor changes as we work on the app and think of cool new things.
+
+<!-- more -->
 
 Fortunately, Android has facilities that make it super easy to get a unified style throughout your app and actually reduces the amount of code you have to write.
 <h2>The Layout</h2>
@@ -90,6 +93,7 @@ The "Widget.Group.Single" is a great example of explicit inheritance.  In this 
 <h2>Use Style</h2>
 As tempting as it can be to skip styles and just copy and paste attributes throughout your UI, I would encourage everyone to use styles instead.  Not only does it make it super easy to make slight changes, but you can also use Android's Resource Engine to easily define styles for different platforms and ensure that you will have a consistent look and feel throughout your app.  This will make users feel more comfortable navigating your app and really gives it that high level of polish.
 <h4>Resources</h4>
-Download the sample project - <a href="http://www.ryanharter.com/wp-content/uploads/2013/02/styles.zip">Source Code
 </a>Read the docs - <a title="Style Resource Guide" href="http://developer.android.com/guide/topics/resources/style-resource.html" target="_blank">Style Resource Guide
-</a>Reference the source of Android's built in styles - <a title="Android Open Source Project styles.xml" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/styles.xml" target="_blank">AOSP Styles.xml</a>
+</a>
+<br/>
+Reference the source of Android's built in styles - <a title="Android Open Source Project styles.xml" href="https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/res/res/values/styles.xml" target="_blank">AOSP Styles.xml</a>
