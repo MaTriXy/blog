@@ -86,6 +86,12 @@ As you can see by my active install graph, Hashnote is no longer being featured,
 
 I have an active and growing user base that keeps me on my toes, and keeps me motivated to continue creating a great app.  I've improved the [web interface](http://hashnoteapp.com) in response to my users, to make editing your notes across devices a seamless experience.
 
+# How to get Featured
+
+People often ask, as I have in the past, how to get featured on the Play Store.  I never thought the general answer of "make a good app" was sufficient, and thought there had to be more to it.  I was wrong.
+
+Though I do have some connections from my time working with Android and Google, I have none that helped out in this instance.  I had never communicated with Nick Butcher before receiving his email, and never reached out to anyone I know to try to get featured.  I just wrote a good app, that had really good ratings, and they reached out to me.
+
 # Unexpected Outcomes
 
 During and after the Play Store feature, I monitored Hashnote on twitter, and was surprized to see that many of the tweets were for Spanish and Russian blogs offering reviews of the app, and bringing in a lot of users.  Hashnote isn't localized yet, but I do plan on doing it soon, as soon as I have some revenue to support it, to help out the users who don't speak English.
