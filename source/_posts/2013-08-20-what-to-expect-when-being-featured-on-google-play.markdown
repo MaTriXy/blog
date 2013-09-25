@@ -6,7 +6,9 @@ comments: true
 categories: 
 ---
 
+<figure class="center">
 {% img center /images/posts/what-to-expect-when-being-featured/play_picks.png %}
+</figure>
 
 It's been a few weeks since my last post, in large part because of all of the work I've been doing for [Hashnote](http://hashnoteapp.com).  For those who don't know, in the beginning of August Hashnote was featured on Google Play in the Play Picks section.  Here's how it went.
 
