@@ -1,7 +1,7 @@
 // This File is imported last, and will override other styles in the cascade
 // Add styles here to make changes without digging in too much
 
-$white: #FFFFFF;
+$white: #f9f9f9;
 
 html {
 	background: $white;
@@ -9,7 +9,8 @@ html {
 
 body {
 	font-family: $sans !important;
-	font-size: 1em;
+	font-size: 1.2em;
+	line-height: 1.65em;
 	max-width: 850px;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
@@ -100,9 +101,10 @@ article {
 	padding-top: 2em;
 
 	.entry-content {
-		h3 {
-			font-style: italic
-		}
+	}
+
+	p {
+		margin-bottom: 1.5em;
 	}
 
 	ul, ol {
@@ -168,16 +170,32 @@ article {
 
 figure.code {
 	.highlight {
-		background: #212C3B !important;
-
+		background: #FFFFFF !important;
 		.gutter {
-			display: none;
+			.line-numbers {
+				background: #efefef !important;
+				span {
+					color: #999 !important;
+				}
+			}
 		}
+	}
+	figcaption {
+		background: none;
+		border: none;
 	}
 }
 
+.highlight, html .gist .gist-file .gist-syntax .gist-highlight {
+	border: 1px solid #f1f1f1 !important;
+}
+
+figure.code, .gist-file, pre {
+	box-shadow: none;
+}
+
 .pre-code, html .gist .gist-file .gist-syntax .highlight pre, .highlight code {
-	background: #212C3B !important;
+	background: #FFFFFF !important;
 }
 
 aside {
