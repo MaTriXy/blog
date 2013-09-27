@@ -184,7 +184,7 @@ Using Github is easy and free (for public repositories), just create an account 
 
 ## Homework
 
-Now that you have a good idea of how to use Git, I'd recommend checking out Githubs [Git training](http://try.github.io/).  It's a great way to learn the basics of git right from your web browser.
+Now that you have a good idea of how to use Git, I'd recommend checking out Github's [Git training](http://try.github.io/).  It's a great way to learn the basics of git right from your web browser.
 
 Next time we'll get into starting our Android project with Android Studio and seeing our code for the first time.
 

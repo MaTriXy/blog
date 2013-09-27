@@ -18,14 +18,41 @@ body {
 	> header {
 		background: url(/images/header_bg.png);
 		width: 100%;
-		text-align: center;
 		padding-left: 0px;
 		padding-right: 0px;	
+		@media only screen and (max-width: 480px) {
+			text-align: center;
+		}
+
+		> hgroup  {
+			max-width: 860px;
+			margin: 0 auto;
+
+			h1, h2 {
+				color: #ccc;
+
+			}
+
+			> img {
+				height: 96px;
+				width: 96px;
+				@media only screen and (min-width: 480px) {
+					float: left;
+					margin-top: 7px;
+				}
+			}
+			> div {
+				@media only screen and (min-width: 480px) {
+					margin-left: 110px;
+				}
+			}
+	    }
 
 		h1 {
 			a, a:visited, a:hover {
-				color: #8C8C8C;
 				font-family: $heading-font-family;
+				font-size: 1em !important;
+				color: inherit;
 			}
 		}
 	}
