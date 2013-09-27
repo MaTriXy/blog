@@ -11,12 +11,13 @@ body {
 	font-family: $sans !important;
 	font-size: 1.2em;
 	line-height: 1.65em;
-	max-width: 850px;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
+	max-width: 100%;
+	padding: 0;
+	margin: 0;
 
 	> header {
-		background: $white;
+		background: url(/images/header_bg.png);
+		width: 100%;
 		text-align: center;
 		padding-left: 0px;
 		padding-right: 0px;	
@@ -34,6 +35,8 @@ body {
 		border-bottom: 1px solid #F2F2F2;
 		padding-left: 0px;
 		padding-right: 0px;
+		max-width: 860px;
+		margin: 0 auto;
 
 		form .search {
 			border-radius: 0.2em 0.2em 0.2em 0.2em;
@@ -80,18 +83,39 @@ body {
 		border-top: 0px;
 		padding-left: 0px;
 		padding-right: 0px;
+		max-width: 860px;
+		margin: 0 auto;
 	}
 
 	#content {
+
 		> article {
 			padding-left: 0px;
 			padding-right: 0px;
+		}
+		article {
+			header {
+				h1 {
+					margin-bottom: 16px;
+				}
+			}
 		}
 
 		> div {
 			> article, > section {
 				padding-left: 0px;
 				padding-right: 0px;
+				section, header, footer, div.ads {
+					max-width: 860px;
+					margin: 0 auto;
+				}
+				h2 {
+					padding-top: 0;
+				}
+			}
+			> section {
+				max-width: 860px;
+				margin: 0 auto;
 			}	
 		}
 	}

@@ -4,14 +4,22 @@ title: "Getting Started with Git"
 date: 2013-09-25 14:33
 comments: true
 categories: 
+  - Android app
+  - development
+  - source control
+  - git
 published: false
 ---
 
-### What is SCM?
+This is the second post in my Start to Finish series.  You can check out my first post introducing the series and my tools [here](/blog/2013/09/25/developing-an-android-app-start-to-finish/).
+
+# What is SCM?
 
 SCM, or source code management, is a system that helps developers manage the source code for their projects.  They have been around forever, things like CVS, Subversion (SVN) and now Git are the popular ones.
 
 SCMs allow you to version your source code, which is why they are also called Version Control Systems.  Versioning your code helps you easily keep track of changes that have been made so that you can go back to previous versions in case anything happens.
+
+<!-- more -->
 
 As an example, let's say you release an app.  We'll call that version 1.  Now you start developing version 2 of your app with all sorts of new features.  After a little while, users of version 1 report a bug.  How do you fix it?  You are already deep into version 2.
 
@@ -19,7 +27,7 @@ With version control, you can easily go back to version 1 and fix that bug, then
 
 This is a very simple example of why version control systems are important, even on a team of one.
 
-### Setting Up Git
+# Setting Up Git
 
 The first step is to install Git. This can be done in several ways and depends on your system.  You can find out how to install Git for your system at the [Git](http://git-scm.com/) website.  
 
@@ -29,7 +37,7 @@ I use a Mac, and like to use [Homebrew](http://brew.sh/) to install command line
 $ brew install git
 ```
 
-### One Time Setup
+# One Time Setup
 
 After installing Git, you need to do a few one time tasks.  These are system settings, so you only have to do them once per machine.
 
@@ -40,7 +48,7 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email your.email@example.com
 ```
 
-### Creating a Repository
+# Creating a Repository
 
 Each project you work on will be stored in a repository.  A repository is simply a folder that contains version controlled material.  In our case, that will be the app we are going to develop.
 
@@ -60,7 +68,7 @@ Initialized empty Git repository in /Users/rharter/code/my_app/.git/
 
 As you can see, we now have a new, empty repository in the my_app directory.
 
-### Working With a Repository
+# Working With a Repository
 
 While you are working on your project, you need to make sure Git knows about all of the files you create as you go.  Lets start out by making some files.
 
@@ -114,7 +122,7 @@ $ git commit -m "Adds readme file"
 
 And that's it, we now have a README file in version control.  This add/commit cycle will continue throughout our development cycle to make sure all new changes are stored in a version.
 
-#### A Note About Commit Messages
+## A Note About Commit Messages
 
 Commit Messages (the part after the `-m`) are meant to be helpful notes about what a specific commit does so that when you are perusing through your commits later to get back to a known point you know what happened without having to dive through the code.  
 
@@ -122,7 +130,7 @@ Some argue that these messages are really descriptions of patches, which they te
 
 It really doesn't matter how you discribe your commits, as long as you (and your team) know what the messages mean.
 
-### How Does That Help?
+# How Does That Help?
 
 It's probably not entirely clear at this point why Git is important, so let me give you a little example.
 
@@ -166,7 +174,7 @@ As you can see, I was able to recover my README file using `git checkout -- READ
 
 This may seem like a contrived example, but this type of thing has happened to me more than a few times and I'm always glad I have Git by my side.
 
-### Github
+# Github
 
 Now that you are familiar with Git, let's talk about [Github](http://github.com).  Github is a social coding site that serves as a sharing point for your Git repositories.  I recommend adding your repository to Github for two reasons: it offers a fill backup of your code (include the history of commits) and makes future collaboration very easy.
 

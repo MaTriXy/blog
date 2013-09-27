@@ -6,6 +6,7 @@ comments: true
 categories: 
 published: false
 ---
+<section>
 
 If you checkout the [Android Development](https://plus.google.com/communities/105153134372062985968) community on Google+, you'll find a lot of people asking how to get started building an app for Android.  Though quite a general question that can't really be answered in a social post, I understand how frustrating it can be to figure out where to get started.
 
@@ -29,7 +30,9 @@ In January of 2013, I quit my mobile development job and became a freelance Andr
 
 In this series, we're going to develop a disc golf score keeping app.  If you are unfamiliar with Disc Golf, also called Frisbee Golf or Frolf, it's much like regular golf, only with flying discs (Frisbee is a brand name by Wham-o).  Check out the [Professional Disc Golf Association](http://www.pdga.com) for more info.
 
+</section>
 {% img center /images/posts/start-to-finish-1/app_screens.png %}
+<section>
 
 With this app, users will be able to select a course from a list (or create a new one) and keep track of their score on each hole on the course.  The app will show them their overall score at all times, and also has a "shade" that can be pulled down to get the score card including each hole on the course.
 
@@ -108,3 +111,5 @@ I don't use a graphical interface for Git as the command line tools are extremel
 ## The End
 
 That's it for this week.  Check back soon to dive into managing projects with Git and getting everything set up to be a real Android developer.
+
+</section>
