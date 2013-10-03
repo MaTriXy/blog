@@ -58,7 +58,7 @@ While not a necessity, I've really grown to like the [Genymotion](http://www.gen
 
 You'll also need to have [Git](http://git-scm.com/) installed so that we can start version controlling our code immediately.
 
-## 1. Tools
+# 1. Tools
 
 Let's call this first section a mini-lesson.  There aren't really actions, per-se, but I want to share with you the tools that I use in my development cycle.
 
