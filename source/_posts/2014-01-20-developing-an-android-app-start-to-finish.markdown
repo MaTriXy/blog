@@ -79,7 +79,7 @@ I felt that this might even improve my coding ability since I wouldn't be able t
 
 After using just emacs for 6 months or so, I switched to [TextMate](http://macromates.com/), which hasn't be updated in years, and have since switched to [Sublime Text 2](http://www.sublimetext.com/).
 
-Sublime Text is a really great editor.  It has a great plugin architecture, so you definitely need to install [Package Control](https://sublime.wbond.net/) a plugin that makes installing plugins super easy.
+Sublime Text is a really great editor.  It has a great plugin architecture, so you definitely need to install [Package Control](https://sublime.wbond.net/), a plugin that makes installing plugins super easy.
 
 It's been a while since I've set mine up, but I really like the [SublimeJava](https://sublime.wbond.net/packages/SublimeJava) plugin, which gives reflection based code completion, among other niceties. 
 
@@ -97,7 +97,7 @@ These build systems are superior, in my opinion, to building in IDEs like Eclips
 
 For years I never used an emulator.  The Android emulator that ships with the SDK is simply too slow and cumbersome to use on a day to day basis.  I was always a test-on-device kind of guy.
 
-That's changed in the last few months when I learned about [Genymotion](http://www.genymotion.com/).  Genymotion is a fast - and I mean fast - Android emulator that runs on VirtualBox.  They've done a great job of making it fast and easy to create and run the emulator without all of that lag that comes with the SDKs emulator.
+That's changed in the last few months when I learned about [Genymotion](http://www.genymotion.com/).  Genymotion is a fast - and I mean fast - Android emulator that runs on VirtualBox.  They've done a great job of making it fast and easy to create and run the emulator without all of that lag that comes with the SDK's emulator.
 
 ## IDE
 
