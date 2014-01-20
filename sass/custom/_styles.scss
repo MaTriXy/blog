@@ -20,8 +20,9 @@ body {
 		width: 100%;
 		padding-left: 0px;
 		padding-right: 0px;	
-		@media only screen and (max-width: 480px) {
-			text-align: center;
+
+		@media only screen and (max-width: 860px) {
+			padding-left: 15px;
 		}
 
 		> hgroup  {
@@ -36,15 +37,11 @@ body {
 			> img {
 				height: 96px;
 				width: 96px;
-				@media only screen and (min-width: 480px) {
-					float: left;
-					margin-top: 7px;
-				}
+				float: left;
+				margin-top: 7px;
 			}
 			> div {
-				@media only screen and (min-width: 480px) {
-					margin-left: 110px;
-				}
+				margin-left: 110px;
 			}
 	    }
 
@@ -64,6 +61,11 @@ body {
 		padding-right: 0px;
 		max-width: 860px;
 		margin: 0 auto;
+
+		@media only screen and (max-width: 860px) {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
 
 		form .search {
 			border-radius: 0.2em 0.2em 0.2em 0.2em;
@@ -116,6 +118,12 @@ body {
 
 	#content {
 
+		color: #666;
+
+		h1, h2, h3, h4, h5, h6 {
+			color: #333;
+		}
+
 		> article {
 			padding-left: 0px;
 			padding-right: 0px;
@@ -126,6 +134,21 @@ body {
 					margin-bottom: 16px;
 				}
 			}
+			div.note {
+				max-width: 860px;
+				margin: 0 auto;
+				padding: 8px;
+				border-left: 3px solid #8EAFD1;
+				background: #efefef;
+				font-size: 0.8em;
+				line-height: 1.5em;
+				> span.title {
+					display: block;
+					padding-bottom: 1.2em;
+					font-weight: 700;
+					color: #666;
+				}
+			}
 		}
 
 		> div {
@@ -134,7 +157,13 @@ body {
 				padding-right: 0px;
 				section, header, footer, div.ads {
 					max-width: 860px;
+					padding-left: 15px;
+					padding-right: 15px;
 					margin: 0 auto;
+				}
+				p {
+					font-size: 95%;
+					line-height: 1.5;
 				}
 				h2 {
 					padding-top: 0;

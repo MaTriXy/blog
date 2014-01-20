@@ -11,7 +11,11 @@ categories:
 published: false
 ---
 
-This is the second post in my Start to Finish series.  You can check out my first post introducing the series and my tools [here](/blog/2013/09/25/developing-an-android-app-start-to-finish/).
+{% note %}
+
+This is the second post in my Start to Finish series.  You can check out my first post introducing the series and my tools <a href="/blog/2013/09/25/developing-an-android-app-start-to-finish/">here</a>.
+
+{% endnote %}
 
 # What is SCM?
 

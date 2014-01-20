@@ -20,13 +20,21 @@ module Jekyll
 
   class NoteTag < Liquid::Block
 
+    @title = nil
+
     def initialize(tag_name, markup, tokens)
+      @title = markup
       super
     end
 
     def render(context)
       output = super(context)
-      "</section>\n<div class=\"note\">#{output}</div>\n<section>"
+      title = "Note"
+      if !@title.empty?
+        title += ": #{@title}"
+      end
+
+      %|</section>\n<div class="note"><span class="title">#{title}</span>#{output}</div>\n<section>|
     end
   end
 end
