@@ -192,4 +192,6 @@ Now that you have a good idea of how to use Git, I'd recommend checking out Gith
 
 Next time we'll get into starting our Android project with Android Studio and seeing our code for the first time.
 
-As always, if you have any questions drop a line in the comments, or email me at [ryan@ryanharter.com](mailto:ryan@ryanharter.com) and I'll do my best to help out.
+As always, if you have any questions drop a line in the comments, or email me at [ryan@ryanharter.com](mailto:ryan@ryanharter.com) and I'll do my best to help out.  And don't forget to sign up below to receive updates when new posts are available.
+
+{% include custom/post/mail_signup.html %}

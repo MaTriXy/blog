@@ -4,7 +4,9 @@ title: "Developing an Android App - Start to Finish"
 date: 2014-01-20 11:01
 comments: true
 categories: 
-published: false
+  - Android
+  - Start to Finish
+  - Development
 ---
 
 If you checkout the [Android Development](https://plus.google.com/communities/105153134372062985968) community on Google+, you'll find a lot of people asking how to get started building an app for Android.  Though quite a general question that can't really be answered in a social post, I understand how frustrating it can be to figure out where to get started.
@@ -13,9 +15,9 @@ There are plenty of tutorials on the web about how to accomplish specific tasks,
 
 In this series I'll be building an entire app.  At the time of this writing I haven't written a line of code for this app, so you'll get to work with me as I create an app, from scratch, that I will eventually submit to the Play Store.
 
-Be sure to [sign up](http://eepurl.com/MKKMf) to receive updates when new posts in the series are avialable.
-
 <!-- more -->
+
+Be sure to [sign up](http://eepurl.com/MKKMf) to receive updates when new posts in the series are avialable.
 
 ## A Bit About Me
 
