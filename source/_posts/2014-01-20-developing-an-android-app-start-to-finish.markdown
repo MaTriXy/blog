@@ -101,7 +101,7 @@ That's changed in the last few months when I learned about [Genymotion](http://w
 
 ## IDE
 
-As I said before, I never used an IDE...until recently.  At Google I/O 2013 Google announced [Android Studio](http://developer.android.com/sdk/installing/studio.html), a home built Android IDE based off of IntelliJ.  It's still in early preview mode, but with the IntelliJ base it's already quite usable.
+As I said before, I never used an IDE...until recently.  At Google I/O 2013 Google announced [Android Studio](http://developer.android.com/sdk/installing/studio.html), a home built Android IDE based on IntelliJ.  It's still in early preview mode, but with the IntelliJ base it's already quite usable.
 
 I now find myself switching between my trusty text editor and Android Studio about 50% of the time.  Android Studio makes things very easy, allowing you to easily refactor code and create strings appropriately, but can also lead to sloppy code.
 
