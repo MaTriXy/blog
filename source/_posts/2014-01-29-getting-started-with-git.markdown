@@ -1,19 +1,19 @@
 ---
 layout: post
 title: "Getting Started with Git"
-date: 2013-09-25 14:33
+date: 2014-01-29 08:42
 comments: true
 categories: 
-  - Android app
+  - Android
+  - Start to Finish
   - development
   - source control
   - git
-published: false
 ---
 
 {% note %}
 
-This is the second post in my Start to Finish series.  You can check out my first post introducing the series and my tools <a href="/blog/2013/09/25/developing-an-android-app-start-to-finish/">here</a>.
+This is the second post in my Start to Finish series.  You can check out my first post introducing the series and my tools <a href="/blog/2014/01/20/developing-an-android-app-start-to-finish/">here</a>.
 
 {% endnote %}
 
@@ -41,7 +41,7 @@ I use a Mac, and like to use [Homebrew](http://brew.sh/) to install command line
 $ brew install git
 ```
 
-# One Time Setup
+## One Time Setup
 
 After installing Git, you need to do a few one time tasks.  These are system settings, so you only have to do them once per machine.
 
@@ -52,7 +52,7 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email your.email@example.com
 ```
 
-# Creating a Repository
+## Creating a Repository
 
 Each project you work on will be stored in a repository.  A repository is simply a folder that contains version controlled material.  In our case, that will be the app we are going to develop.
 
@@ -71,6 +71,18 @@ Initialized empty Git repository in /Users/rharter/code/my_app/.git/
 ```
 
 As you can see, we now have a new, empty repository in the my_app directory.
+
+## Adding a .gitignore File
+
+The next step is to add files to the repository.  By default, Git tracks every file in a repository, which is almost never desireable.  There are many files, such as log files, build artifacts, local config files (local.properties), and the dreaded (at least on Mac) .DS_Store file, that either isn't important to track, or shouldn't be shared amongst your team.
+
+Telling Git to ignore these files is as easy as adding a `.gitignore` file to the root of our repository.  This file simply lists the files and directories that should be ignored by Git.  For this example, it's quite simple, but we will fill it in a little more once we make an Android project.
+
+```
+# .gitignore
+# Lines preceded by a hash symbol will be ignored.
+.DS_Store
+```
 
 # Working With a Repository
 
@@ -180,7 +192,7 @@ This may seem like a contrived example, but this type of thing has happened to m
 
 # Github
 
-Now that you are familiar with Git, let's talk about [Github](http://github.com).  Github is a social coding site that serves as a sharing point for your Git repositories.  I recommend adding your repository to Github for two reasons: it offers a fill backup of your code (include the history of commits) and makes future collaboration very easy.
+Now that you are familiar with Git, let's talk about [Github](http://github.com).  Github is a social coding site that serves as a sharing point for your Git repositories.  I recommend adding your repository to Github for two reasons: it offers a full backup of your code (include the history of commits) and makes future collaboration very easy.
 
 {% img center /images/posts/start-to-finish-2/github.png %}
 
