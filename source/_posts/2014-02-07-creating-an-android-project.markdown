@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Creating an Android Project"
-date: 2013-10-03 15:33
+date: 2014-02-07 15:33
 comments: true
 categories: 
 published: false
@@ -78,4 +78,54 @@ Now you should see a default New Project screen.  Here we set all of the basic s
 1.  **Mark this project as a library**
 
     If we were making an Android library, we would check this, but for this project we'll leave this unchecked.
+
+## Project Templates
+
+One of the advantages of using an IDE like Android Studio is support for project templates.  This is a great way to get started with the foundation of an app that follows a common paradigm, like Master/Detail flow.  As you get more advanced you'll probably skip over this section, but it's nice when you're starting out.
+
+{% img center /images/posts/start-to-finish-3/project-creation-3.png "Project Template screen" %}
+
+In our case, the app we're creating using a Master/Detail flow, since we will be showing a list of items (the available pets) and navigating into a detail view for a selected pet.  Select Master/Detail Flow and move on.
+
+{% img center /images/posts/start-to-finish-3/project-creation-4.png "Template Settings screen" %}
+
+The Master/Detail Flow template required just a little bit more information about our project so we can get started, so we'll type in our Object kinds here.
+
+{% note %}
+Notice that Android Studio gives you a nice description at the bottom of the screen telling you about each section of the process.  If you ever have questions, be sure to look for the tools advice.  This applies to Android Studio, the compiler, and device logs, etc.
+{% endnote %}
+
+## The Code View
+
+After you click Finish on the project creation dialog, you are presented with the main interface of Android Studio.  This is where you will do the majority of your work in Android Studio, so you should be familiar with it's componenets.
+
+{% img center /images/posts/start-to-finish-3/project-creation-5.png "Code View" %}
+
+### Project Structure
+
+On the left you have the project view.  This is the file structure of your app, nicely annotated to make identification of components easier.  The Java code you'll be working with lives in the `adoptme/src/main/java` directory and the resources like layout files, drawable assets, etc. live in `adoptme/src/main/res`.
+
+### Code View
+
+The right hand pane is the code view.  Select a file and this is where your code shows up.  The rest about this view is pretty self explainatory.
+
+### Run Controls
+
+At the top of the screen you will see several buttons, including a play button and a little bug.  These allow you to run and debug your app, respectively.  For now, this is all you need for your app.
+
+### Bottom Tabs
+
+Across the bottom of the screen you will see a few tabs, depending on what you are doing at the time.  For instance, clicking the `Android` tab will expand the device logs, allowing you to see what's going on in you app.
+
+## Running the App
+
+Before we dive into code, lets take a look at what we've created.  To run the app, you will need to either have a [Genymotion emulator](/blog/2013/09/10/android-emulation-done-right/) running, or a device plugged in that has [developer mode enabled](http://developer.android.com/tools/device.html#setting-up).  Click on the Run button (<img src="/images/posts/start-to-finish-3/run-button.png" alt="Run Button"/>) and wait for this dialog.
+
+{% img center /images/posts/start-to-finish-3/project-creation-6.png "Device Chooser" %}
+
+Just make sure "Choose a running device" is selected, and your preferred device/emulator is highlighted, then click OK.
+
+{% note %}
+One of the neat things about this dialog is that you can select more than one device and your app will be run simulataneously on all of them.
+{% endnote %}
 
