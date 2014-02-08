@@ -4,18 +4,22 @@ title: "Creating an Android Project"
 date: 2014-02-07 15:33
 comments: true
 categories: 
-published: false
+  - Android
+  - Start to Finish
+  - development
 ---
 
 {% note %}
 This is the third post in my Start to Finish series.  Last time I talked about source control with <a href="/blog/2013/09/25/getting-started-with-git/">Git</a>.
 {% endnote %}
 
-We've talked about [basic tools](/blog/2013/09/25/developing-an-android-app-start-to-finish/), and about [source control](/blog/2013/09/25/getting-started-with-git/), so now we're ready to get into actually creating an Android app.
+We've talked about [basic tools](/blog/2014/01/20/developing-an-android-app-start-to-finish/), and about [source control](/blog/2014/01/29/getting-started-with-git/), so now we're ready to get into actually creating an Android app.
 
 In this part of the series, we're going to create a new project using [Android Studio](http://developer.android.com/sdk/installing/studio.html).  Android Studio is Google's Integrated Development Environment (IDE) that we will use to create our Android app.  While it's still in early preview release status, it will be replacing Eclipse as the main Android development IDE, so we'll go ahead and just start there.
 
-Assuming you have already installed Android Studio, start it up and you will be greeted by a welcome screen, inviting you to create or import a project.
+## Let's Get Started
+
+Assuming you have already [installed](http://developer.android.com/sdk/installing/studio.html) Android Studio, start it up and you will be greeted by a welcome screen, inviting you to create or import a project.
 
 {% img center /images/posts/start-to-finish-3/project-creation-1.png "Android Studio welcome screen" %}
 
@@ -129,3 +133,33 @@ Just make sure "Choose a running device" is selected, and your preferred device/
 One of the neat things about this dialog is that you can select more than one device and your app will be run simulataneously on all of them.
 {% endnote %}
 
+You will then see your app running on your device or emulator.  The app launches to the list screen, allowing you to click on an item and view the detail screen.
+
+{% img center /images/posts/start-to-finish-3/project-creation-7.png "List View" %}
+
+While this all may seem very basic right now, consider what we have done.  Without writing any code, you've made your first Android app.  While it is basic, it already presents the basis of our final app, including a list view that navigates into a detail view.  
+
+In the next post we will dive into the code that drives this list, the [Adapter](https://developer.android.com/reference/android/widget/Adapter.html), and style our list.  But before we do, there is one last step.
+
+## Commiting our Changes
+
+In the [last post](/blog/2014/01/29/getting-started-with-git/) I talked about the importance of version control.  The last step, now that we have our basic project created, is to commit that project to version control.
+
+This is a simple operation that we will do at the command line.  Simple open your command line (Terminal on a Mac) and navigate to your project directory.  Alternatively, you can use the terminal tab at the bottom of your Android Studio window.  Then simply run the following git commands to initialize and commit your code.
+
+``` sh
+$ git init
+Initialized empty Git repository in /Users/rharter/code/AdoptMe/.git/
+$ git add .
+$ git commit -m 'Initial Project Creation'
+```
+
+The first line of this command initializes a Git repository for our project.  The second adds our files, and the third commits them with the comment 'Initial Project Creation'.  That's all we need to do at this point to have our code saved and tracked in Git.
+
+## Up Next
+
+In this post we created a basic Android project that will serve as the basis of our Adopt Me app.  Next time we'll dive into the code to learn about the mechanisms for driving a list view, and see how to make custom layouts in Android.  Feel free to explore the code we have now.
+
+As always, leave any questions or comments below, and sign up to receive emails when new posts are available.
+
+{% include custom/post/mail_signup.html %}
