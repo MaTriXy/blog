@@ -9,7 +9,7 @@ ssh_port       = "22"
 document_root  = "/srv/www/ryanharter.com/public_html/"
 rsync_delete   = true
 rsync_args     = "--chmod=u+rwX,g+rwX,o+rX,o-w"  # Any extra arguments to pass to rsync
-deploy_default = "rsync"
+deploy_default = "s3"
 
 # This will be configured for you when you run config_deploy
 deploy_branch  = "gh-pages"
@@ -242,6 +242,12 @@ task :rsync do
   end
   puts "## Deploying website via Rsync"
   ok_failed system("rsync -avze 'ssh -p #{ssh_port}' #{exclude} #{rsync_args} #{"--delete" unless rsync_delete == false} #{public_dir}/ #{ssh_user}:#{document_root}")
+end
+
+desc "Deploy website to Amazon S3"
+task :s3 do
+  puts "## Deploying website to Amazon S3"
+  ok_failed system("s3_website push --site public")
 end
 
 desc "deploy public directory to github pages"
