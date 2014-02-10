@@ -172,7 +172,7 @@ body {
 			> section {
 				max-width: 860px;
 				margin: 0 auto;
-			}	
+			}
 		}
 	}
 }
@@ -181,6 +181,10 @@ article {
 	padding-top: 2em;
 
 	.entry-content {
+		img {
+			display: block;
+			margin: 0 auto;
+		}
 	}
 
 	p {
