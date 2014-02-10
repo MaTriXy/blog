@@ -19,7 +19,7 @@ Since I buy all of my phones off contract, it wasn't until Motorola offered a [T
 
 ## My Reasoning
 
-I had always been a Nexus user because, as a developer, I felt that I needed a reference device that I could develop agains't without any of the manufacturer specific modifications that so many OEMs apply. 
+I had always been a Nexus user because, as a developer, I felt that I needed a reference device that I could develop against without any of the manufacturer specific modifications that so many OEMs apply. 
 
 Once the Moto X came along, we finally had a device on which the manufacturer was actually adding value to Android to help itself differentiate, instead of molesting it.  For the most part, the Moto X contains stock Android with extra [apps](http://www.motorola.com/us/Moto-X-Features-5---And-There%27s-More/motox-features-5-and-theres-more.html) and [services](http://www.motorola.com/us/Moto-X-Features-Touchless-Control/motox-features-2-touchless.html), instead of an entirely custom rom that changes the very foundation of Android.
 
@@ -39,7 +39,7 @@ I eventually decided to go with a green back, blue accent colors and a white fac
 
 ## Screen Quality
 
-One of the things that I applauded Motorola for with the Moto X was the fact that they used a 720p screen while other manufacturers were touting their 1080p screens.  While more pixels are always cool, I felt it was a bit of over kill for a 4.5 inch screen.  I, honestly, couldn't really see much of a difference, and the tradeoff in battery life is well worth it.
+One of the things that I applauded Motorola for with the Moto X was the fact that they used a 720p screen while other manufacturers were touting their 1080p screens.  While more pixels are always cool, I felt it was a bit of over kill for a 4.7 inch screen.  I, honestly, couldn't really see much of a difference, and the tradeoff in battery life is well worth it.
 
 {% img /images/posts/moto-x-review/front-right-on.jpg "Moto X" %}
 
@@ -53,7 +53,7 @@ Here you can see some examples of shots I've taken with my Moto X, with detailed
 
 {% img /images/posts/moto-x-review/rahleigh.jpg "Rahleigh" "My dog Rahleigh chilling on the couch."%}
 
-This is, of course, only one example. but so far I've been quite happy with the camera.  It struggles a little in low light situations, adding a fair amount of noise to my photos, but I haven't had a lot of phones that take great photos at night.
+This is, of course, only one example, but so far I've been quite happy with the camera.  It struggles a little in low light situations, adding a fair amount of noise to my photos, but I haven't had a lot of phones that take great photos at night.
 
 Even more important for me is how fast I can take a photo.  I've had no issues with the twist feature launching the camera, successfully opening my camera on the first try probably 85% of the time.  For those times I miss, a quick second twist gets the camera open and I can snap my shot.  This is a surprisingly useful feature that has really helped me get my camera out in time for a shot on more than one occasion.
 
@@ -65,9 +65,9 @@ One of the biggest things I was looking forward to with the Moto X was a high qu
 
 {% img /images/posts/moto-x-review/front.jpg "My Moto X" %}
 
-I've been really happy with the 4.5 inch screen of the Moto X.  It doesn't feel overly large in my hand, yet I don't feel like I'm looking at the web and apps through a peep-hole.  I can easily reach the far side of the screen to hit the up button in apps, something I had actually started using my other hand to do on the Nexus 5.  I definitely feel like this is the sweet spot for a phone, for me, having tried larger and smaller.
+I've been really happy with the 4.7 inch screen of the Moto X.  It doesn't feel overly large in my hand, yet I don't feel like I'm looking at the web and apps through a peep-hole.  I can easily reach the far side of the screen to hit the up button in apps, something I had actually started using my other hand to do on the Nexus 5.  I definitely feel like this is the sweet spot for a phone, for me, having tried larger and smaller.
 
-As far as build quality, the Moto X is certainly top notch.  Though there is no metal to be found on the device outside of the accents, the phone feels extremely solid.  The texture of the plastic back feels very nice in the hand, and the depression on teh back for the Motorola logo makes for a great reference point for my fingers as I hold the device.
+As far as build quality, the Moto X is certainly top notch.  Though there is no metal to be found on the device outside of the accents, the phone feels extremely solid.  The texture of the plastic back feels very nice in the hand, and the depression on the back for the Motorola logo makes for a great reference point for my fingers as I hold the device.
 
 ## Motorola's Little Additions
 
@@ -81,8 +81,10 @@ At any time I can take my phone out of my pocket, or nudge it if it's sitting on
 
 ## Final Thoughts
 
-After spending years convinced that I would never leave the Nexus program behind, I'm now extremely happy that I did.  Motorola has really come out swinging and shown what can be done when a hardware manufacturer focusses on what it does best.
+After spending years convinced that I would never leave the Nexus program behind, I'm now extremely happy that I did.  Motorola has really come out swinging and shown what can be done when a hardware manufacturer focuses on what it does best.
 
 I would highly recommend a Moto X to anyone looking to get a new phone.  I think the Google Play Edition is absolutely not necessary since Motorola has stayed so close to stock Android, and that is saying a lot coming from someone who has had Nexus phones for as long as I have.
 
 Motorola has done a great job with this phone and I hope they continue doing these great things once their sale to Lenovo is complete.  They're one phone in and already have a loyal user in me.
+
+Leave a note in the comments if you have your own thoughts or would like to know anything else.
