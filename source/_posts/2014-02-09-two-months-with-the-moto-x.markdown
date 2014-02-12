@@ -6,7 +6,6 @@ comments: true
 categories: 
  - Review
  - Moto X
-published: false
 ---
 
 Two months ago, after an [unfortunate incident](http://www.ebay.com/itm/331089526837?ssPageName=STRK:MESOX:IT&_trksid=p3984.m1561.l2649) with my Nexus 5 and tile floor, I decided to hop off the Nexus train and get a Moto X.  After years of using nothing but Nexus devices (starting with the Nexus S) this was a bit switch that made me a little nervous.
