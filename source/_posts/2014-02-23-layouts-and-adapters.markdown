@@ -4,6 +4,9 @@ title: "Customizing the ListView"
 date: 2014-02-23 19:41
 comments: true
 categories: 
+  - Android
+  - Start to Finish
+  - development
 ---
 
 In the [last post](/blog/2014/02/07/creating-an-android-project/) we created a basic Android project using Android Studio templates. While it's great that we have a fully functioning master/detail style app, it does look a bit bare. In this post, we'll change this by styling our list view, incorporating (sort of) real data to feed our list.  We'll make a custom adapter to drive our list with custom layouts, and introduce testing into the mix to ensure that our app continues to perform as expected.
