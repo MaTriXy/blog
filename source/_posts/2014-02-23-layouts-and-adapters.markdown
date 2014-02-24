@@ -15,6 +15,8 @@ In the [last post](/blog/2014/02/07/creating-an-android-project/) we created a b
 
 At the end of this post, this is how your pet list will look.  I've made a few stylistic changes from the original mockups to allow the imagery to really fill the content area.
 
+<!-- more -->
+
 As always, now is the time to make a new feature branch: 
 
 ``` sh
