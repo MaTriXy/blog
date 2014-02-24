@@ -392,7 +392,7 @@ end
 #
 # Addition to publish a draft (published: false) and change date.
 #
-
+require "preamble"
 desc "Publish draft"
 task :publish_draft do
   posts_path = "#{source_dir}/#{posts_dir}"

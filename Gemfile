@@ -15,6 +15,7 @@ group :development do
   gem 'stringex', '~> 1.4.0'
   gem 'liquid', '~> 2.3.0'
   gem 's3_website', '~> 1.6.7'
+  gem "preamble", "~> 0.0.2"
 end
 
 gem 'sinatra', '~> 1.3.5'
