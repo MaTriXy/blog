@@ -8,7 +8,7 @@ categories:
  - Moto X
 ---
 
-Two months ago, after an [unfortunate incident](http://www.ebay.com/itm/331089526837?ssPageName=STRK:MESOX:IT&_trksid=p3984.m1561.l2649) with my Nexus 5 and tile floor, I decided to hop off the Nexus train and get a Moto X.  After years of using nothing but Nexus devices (starting with the Nexus S) this was a bit switch that made me a little nervous.
+Two months ago, after an [unfortunate incident](http://www.ebay.com/itm/331089526837?ssPageName=STRK:MESOX:IT&_trksid=p3984.m1561.l2649) with my Nexus 5 and tile floor, I decided to hop off the Nexus train and get a Moto X.  After years of using nothing but Nexus devices (starting with the Nexus S) this was a big switch that made me a little nervous.
 
 {% img /images/posts/moto-x-review/front-right-on.jpg "Moto X" %}
 
@@ -42,7 +42,7 @@ One of the things that I applauded Motorola for with the Moto X was the fact tha
 
 {% img /images/posts/moto-x-review/front-right-on.jpg "Moto X" %}
 
-The other interesting thing about the display is that it's an AMOLED display.  This was a reasonably controversion decision that allows Motorola to only light the required parts of the screen to save battery life.  On most phones this wouldn't save a whole lot, since most of the screen is always lit, but alongside Motorola's [Active Display](http://www.motorola.com/us/Moto-X-Features-Active-Display/motox-features-3-active-display.html) offers some really interesting and useful features, while sipping the battery.
+The other interesting thing about the display is that it's an AMOLED display.  This was a reasonably controversial decision that allows Motorola to only light the required parts of the screen to save battery life.  On most phones this wouldn't save a whole lot, since most of the screen is always lit, but alongside Motorola's [Active Display](http://www.motorola.com/us/Moto-X-Features-Active-Display/motox-features-3-active-display.html) offers some really interesting and useful features, while sipping the battery.
 
 ## The Camera
 
@@ -76,7 +76,7 @@ As I've mentioned before, Motorola did a great job of utilizing the power and be
 
 Along with the AMOLED display and their X8 processing system, Motorola has found a way to make your phone useful, even with the screen off, without draining your battery.  This took a little bit of getting used to for me, as I was in the habit of hitting the power button every time I'd take my phone out of my pocket, but it is an amazingly useful little touch.  
 
-At any time I can take my phone out of my pocket, or nudge it if it's sitting on my desk, and see the time and any notifications that I have.  I hadn't thought much of this before I got the Moto X, but I recently turned that feature off to try out a new lock screen app and really missed it.  That kind of true availability is extremely useful.  Samsung has tried similar things with their [S-View Flip Cover](http://www.samsung.com/us/mobile/cell-phones-accessories/EF-CI950BBESTA)(though I wish they'd get over this "put an S in front of everything" mentality), but I find Active Display to be a much more elegant approach.
+At any time I can take my phone out of my pocket, or nudge it if it's sitting on my desk, and see the time and any notifications that I have.  I hadn't thought much of this before I got the Moto X, but I recently turned that feature off to try out a new lock screen app and really missed it.  That kind of true availability is extremely useful.  Samsung has tried similar things with their [S-View Flip Cover](http://www.samsung.com/us/mobile/cell-phones-accessories/EF-CI950BBESTA) (though I wish they'd get over this "put an S in front of everything" mentality), but I find Active Display to be a much more elegant approach.
 
 ## Final Thoughts
 

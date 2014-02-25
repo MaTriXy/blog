@@ -412,6 +412,12 @@ To use this library you need to add a compile dependency to your `/adoptme/build
 compile 'com.squareup.picasso:picasso:2.2.0'
 ```
 
+In order for the Picasso library to fetch images from the internet, we have to enable internet permissions on the app.  You can easily do that with one line in the manifest.
+
+``` xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
+
 After loading the image the last piece is just setting the pet's name and breed on the TextView's we collected earlier.
 
 Now, if you run your tests again, you should find that the tests pass, as our new view has the appropriate name and breed listed in the appropriate TextViews.
