@@ -6,7 +6,7 @@ comments: true
 categories: 
  - Android
  - development
-published: false
+published: true
 ---
 On a recent client app, I ran into a situation where I needed an arbitrary number of EditText fields based on a selected value, where the user could enter people's information.  My initial thought was to put this logic in my Fragment, just adding EditTexts to a LinearLayout container as the selected value changes, but that bloated my Fragment, and didn't allow for much reuse.
 
