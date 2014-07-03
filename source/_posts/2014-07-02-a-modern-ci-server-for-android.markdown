@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "A Modern CI Server for Android"
+title: A Modern CI Server for Android
 date: 2014-07-02 17:37
 comments: true
 categories: 
-published: false
+published: true
 ---
 
 As a freelance Android developer, I've gotten the opportunity to work with many different client environments when it comes to building and releasing Android (and other) apps.  One of the things that I've learned over the years is the importance of a good build server.
