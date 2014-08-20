@@ -182,6 +182,19 @@ article {
 
 	.entry-content {
 		img {
+			&.pull {
+				padding-bottom: 16px;
+				
+				@media only screen and (max-width: 600px) {
+					display: block;
+				}
+				&.left {
+					padding-right: 24px;
+				}
+				&.right {
+					padding-left: 24px;
+				}
+			}
 			display: block;
 			margin: 0 auto;
 		}
