@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Bringing Fragment to Android"
-date: 2014-08-20 13:49
+title: Bringing Fragment to Android
+date: 2014-08-21 10:54
 comments: true
 categories: 
-published: false
+published: true
 ---
 
 {% img center /images/posts/fragment-launch/fragment-title-card.jpg %}
