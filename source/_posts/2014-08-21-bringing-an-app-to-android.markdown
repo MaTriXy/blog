@@ -9,7 +9,7 @@ published: true
 
 {% img center /images/posts/fragment-launch/fragment-title-card.jpg %}
 
-In November 2013, Ben Guerrette from [Pixite](http://pixiteapps.com) reached out to me after reading my post about my experience being [featured on the Google Play](/2013/08/20/what-to-expect-when-being-featured-on-google-play/).  He was interested in bringing one of their iOS photo apps to Android.
+In November 2013, Ben Guerrette from [Pixite](http://pixiteapps.com) reached out to me after reading my post about my experience being [featured on the Google Play](/blog/2013/08/20/what-to-expect-when-being-featured-on-google-play/).  He was interested in bringing one of their iOS photo apps to Android.
 
 At this point I wasn't familiar with Pixite, so I promptly fired up the Google to do my research.  I was quite impressed with what I found.  The guys at Pixite had created some really cool photo apps for iOS, and when I searched Google Play for similar offerings on Android, I found next to nothing.
 
