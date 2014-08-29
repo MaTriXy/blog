@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Building Dynamic Custom Views"
-date: 2014-08-27 16:42
+title: Building Dynamic Custom Views
+date: 2014-08-29 11:29
 comments: true
 categories: 
-published: false
+published: true
 ---
 Last week I released [Fragment][1] for Android.  Fragment is made up of all sorts of custom Views, which I think sets it apart from many apps in the Play Store.  
 
@@ -12,31 +12,25 @@ Some of these views have a similar pattern to views I've had to create for other
 
 # The Control
 
-Lets start by defining our end goal.  The control we want to build allows the user to scroll a view such that any of the contents can be moved to the center of the screen.  Here's an animation demonstrating what I mean.
+Let's start by defining our end goal.  The control we want to build allows the user to scroll a view such that any of the contents can be moved to the center of the screen.  Here's an animation demonstrating what I mean.
 
 {% img center /images/posts/building-dynamic-custom-views/control.gif %}
 
-This control, boiled down, is really just a HoriztonalScrollView.  Notice how, when the user scrolls to the end, there is a nice overscroll indicator.  When the user flings the control, it moves accordingly.  The control nicely decelerates just like all other Android ScrollViews, making it feel natural to the user.  These are all things you get for free by subclassing a build in Android widget.
+This control, boiled down, is really just a HorizontalScrollView.  Notice how, when the user scrolls to the end, there is a nice overscroll indicator.  When the user flings the control, it moves accordingly.  The control nicely decelerates just like all other Android ScrollViews, making it feel natural to the user.  These are all things you get for free by subclassing a build in Android widget.
 
 <!-- more -->
 
-This view does, however, pose two challenges.  First, we need enough padding on each side of the view so that the contents will scroll far enough that the edges align with the center of the screen.  Second, we need the ScrollView to be observable, so we can update our value whenever the user scrolls teh view.  Let's tackle these one at a time below.
+This view does, however, pose two challenges.  First, the ScrollView needs to be observable, so we can update our value whenever the user scrolls the view.  Second, we need enough padding on each side of the view so that the contents will scroll such that the edges align with the center of the screen.    Let's tackle these one at a time below.
 
 # An Observable ScrollView
 
-Let's tackle the second issue first, since it's actually quite simple.  We need to be able to observe our HorizontalScrollView, though the orientation isn't exactly relevant, to know when the scroll position changes.
+The first challenge, creating an observable ScrollView (Horizontal in our case), is actually quite simple.  The orientation of the ScrollView isn't important, so this will work with vertical or horizontal scroll views.
 
-This is a surprizingly simple problem, and I'm always surprized when I'm reminded that this feature isn't built into the default Android ScrollView class.  ListView has a listener interface to be notified with the scroll position changes, so why not ScrollView.  Let's just assume that the AOSP developers figured it was too easy to be required.
+This is a surprisingly simple problem, and I'm always surprised when I'm reminded that this feature isn't built into the default Android ScrollView class.  ListView has a listener interface to be notified with the scroll position changes, so why not ScrollView.  Let's just assume that the AOSP developers figured it was too easy to be required.
 
 While the built in ScrollView classes don't have an OnScrollChangedListener interface, they do have a protected `onScrollChanged` method, so we can easily just subclass the ScrollView of our choosing and create our own interface.  Here's what mine looks like.
 
 ```java
-package com.ryanharter.android.example;
-
-import android.content.Context;
-import android.util.AttributeSet;
-import android.widget.HorizontalScrollView;
-
 /**
  * A {@link HorizontalScrollView} with an {@link OnScrollChangedListener} interface
  * to notify listeners of scroll position changes.
@@ -60,16 +54,8 @@ public class ObservableHorizontalScrollView extends HorizontalScrollView {
 
   private OnScrollChangedListener mOnScrollChangedListener;
 
-  public ObservableHorizontalScrollView(Context context) {
-    super(context);
-  }
-
   public ObservableHorizontalScrollView(Context context, AttributeSet attrs) {
     super(context, attrs);
-  }
-
-  public ObservableHorizontalScrollView(Context context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
   }
 
   public void setOnScrollChangedListener(OnScrollChangedListener l) {
@@ -108,6 +94,12 @@ Where did I come up with this elegant solution, you ask?  While I've pointed out
 
 The other challenge that we identified when making this view was that the scrolling contents needs to be able to be in the center of the screen.  The challenge here is that we don't know the width of the screen at compile time, and can't even get the width of the view until it is measured, so we need a dynamic way to add spacing around the scrolling content.
 
+Below I will outline two approaches to this problem, but both solve the problem in the same fashion.  The basic idea is to add invisible spacers before and after the scrolling content, sized appropriately so that that actual contents are able to scroll their left edge to the center of the scroll view.
+
+{% img center /images/posts/building-dynamic-custom-views/scrolling-diagram-1.png %}
+
+As you can see in the diagram above, the ScrollView doesn't need to do anything differently in relation to it's scrolling, it just appears to allow items to scroll to the center to the user.
+
 ## OnPreDrawListener
 
 One way we can achieve this is by using the `ViewTreeObserver`'s [OnPreDrawListener][3].  This is a super handy callback which is called before our views are drawn but after they have been measured.  This allows us to modify our views (add spacers) once we know the size of the view.  Here's an example:
@@ -142,17 +134,11 @@ scrollView.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
 });
 ```
 
-What this does is add invisible spacer views to the front and the back of the child content, allowing the appearance of the child content scrolling to the center of the view.  Here's a diagram showing what I mean.
-
-{% img center /images/posts/building-dynamic-custom-views/scrolling-diagram-1.png %}
-
-You can see here that there is really never any empty space in the ScrollView, we just make it appear that way with empty views.
-
 This is a nice approach because it can be added onto any ScrollView in the code, without modifying your existing layouts (assuming the child of the ScrollView is a LinearLayout appropriately oriented).  Throw this in a view helper and it can be as simple as `ViewHelper.addScrollingSpacers(scrollView);`.
 
-One downside of this approach is that we actually throw away a layout-measure-draw cycle.  Remember that our OnPreDrawListener is called at the end of this cycle so that we know the width of our ScrollView.  That means that the first time around, this is really a layout-measure-add-spacers-layout-measure-draw cycle.  At the end of the day, since this only happens once, it's not generally a big deal, but it is something to note.
+One downside of this approach is that we actually throw away a measure-layout-draw cycle.  Remember that our OnPreDrawListener is called at the end of this cycle so that we know the width of our ScrollView.  That means that the first time around, this is really a measure-layout-add-spacers-measure-layout-draw cycle.  At the end of the day, since this only happens once, it's not generally a big deal, but it is something to note.
 
-But what if there was a way to add our spacers earlier in the layout-measure-draw cycle?
+But what if there was a way to add our spacers earlier in the measure-layout-draw cycle?
 
 ## onLayout
 
@@ -165,16 +151,8 @@ public class ScrollingValuePicker extends FrameLayout {
   private View mRightSpacer;
   private ObservableHorizontalScrollView mScrollView;
 
-  public ScrollingValuePicker(Context context) {
-    this(context, null);
-  }
-
-  public ScrollingValuePicker(Context context, AttributeSet attrs) {
-    this(context, attrs, 0);
-  }
-
-  public ScrollingValuePicker(Context, context, AttributeSet attrs, int defStyle) {
-    super(context, attrs, defStyle);
+  public ScrollingValuePicker(Context, context, AttributeSet attrs) {
+    super(context, attrs);
 
     // Create our internal scroll view
     mScrollView = new ObservableHorizontalScrollView(context);
