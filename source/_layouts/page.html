@@ -10,9 +10,7 @@ layout: default
     {% if page.date %}<p class="meta">{% include post/date.html %}{{ time }}</p>{% endif %}
   </header>
   {% endif %}
-  <section>
-    {{ content }}
-  </section>
+  {{ content }}
   {% unless page.footer == false %}
     <footer>
       {% if page.date or page.author %}<p class="meta">
@@ -30,12 +28,6 @@ layout: default
   <section>
     <h1>Comments</h1>
     <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
-  </section>
-{% endif %}
-{% if site.juvia_site_key and page.comments == true %}
-  <section>
-    <h1>Comments</h1>
-    <div id="juvia_thread" aria-live="polite">{% include post/juvia_thread.html %}</div>
   </section>
 {% endif %}
 </div>
