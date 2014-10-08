@@ -1,10 +1,13 @@
 ---
 layout: post
 title: "Using Gestures"
-date: 2014-10-06 08:51
+date: 2014-10-08 10:42
 comments: true
 categories: 
-published: false
+ - Android
+ - Tips
+ - Tutorials
+published: true
 ---
 {% img center /images/posts/gestures/header.png %}
 
