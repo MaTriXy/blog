@@ -80,6 +80,8 @@ In my opinion, as app developers, we should be focusing on how we can provide th
 
 Intents make this very easy, and should not be overlooked when it comes to building high quality Android apps.
 
+*Thanks to [Dan Lew](http://danlew.net) for proofreading this post.*
+
 ---
 
 
