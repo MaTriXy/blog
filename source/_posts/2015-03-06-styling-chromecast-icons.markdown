@@ -12,6 +12,8 @@ One of my favorite new devices from Google is the Chromecast. I have 3 throughou
 
 I've also had the pleasure of integrating Google Cast support on several apps in my [freelancing business](http://analog-ocean.com).  These are usually pretty cut and dry, but I recently had a client who needed a custom Google Cast action item which was one of many colors, depending on where you are in the app.
 
+<!-- more -->
+
 {% img center /images/posts/chromecast-icons/icons.jpg %}
 
 This makes for a really cool user experience, but isn't exactly straight forward using the media support libraries. Below, I'll walk you through the common solution to this, and how I was able to support truly custom colors throughout my app.
