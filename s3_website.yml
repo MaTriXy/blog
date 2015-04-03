@@ -25,7 +25,7 @@ s3_bucket: ryanharter.com
 
 # s3_reduced_redundancy: true
 
-cloudfront_distribution_id: E1R8OG6U7AOLX6
+cloudfront_distribution_id: E3B8CI8W5LU8X1
 
 # cloudfront_distribution_config:
 #   default_cache_behavior:
