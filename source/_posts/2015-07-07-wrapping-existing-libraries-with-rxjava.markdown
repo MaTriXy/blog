@@ -16,19 +16,25 @@ I ran into this exact issue while [integrating OpenIAB](http://ryanharter.com/bl
 
 ## Wrap It Up
 
-The solution here is to wrap the existing library with some Rx. This can seem a little confusing since OpenIAB uses the Listener pattern, and also uses `startActivityForResult`, but is actually quite simple, and the basic rules can apply to any listener based library.
+The solution here is to wrap the existing library with some Rx. This is actually quite simple, and the basic rules can apply to any listener based library.
 
-If you've read any of [Dan Lew](http://blog.danlew.net)'s articles in his Grokking RxJava series, you will have probably come accross his mention of handling [Old, Slow Code](http://blog.danlew.net/2014/10/08/grokking-rxjava-part-4/#oldslowcode). He covers wrapping synchronous methods with `Observable.just()`, `Observable.from()` and `Observable.defer()` to create observables, but listener based libraries use listeners because they handle their own threading, and generally don't return a result.
+If the library you want to use has synchronous methods available, then the prefered way to wrap it with RxJava would be to use `Observable.defer()`, which simply delays the call until the observable has been subscribed to, and performs the action on the subscription's assigned thread.
 
-{% note %}
-Before we get started wrapping the listener based code with Rx, there is one thing I should point out. If your library has synchronous methods that simply return the result, and don't handle any of the threading themselves, then Dan's method is preferrable. Using the threading support of RxJava mixed with the library's internal threading throughout your app can be confusing and should only be use if necessary.
-{% endnote %}
+```java
+public Observable<Object> wrappedMethod() {
+  return Observable.defer(() -> {
+    return Observable.just(library.synchronousMethod());
+  });
+}
+```
+
+This is by far the easiest way to wrap existing libraries and should be pefered over using a library's listeners, as the mixed thread handling can get quite confusing.
+
+In some cases, like with OpenIAB, not all methods are available as synchronous calls. For these cases, we must take a different approach to wrapping the library.
 
 ## The API
 
-As an example for wrapping existing libraries in RxJava Observables, I'm going to use OpenIAB, a multi-store in app purchase library that I recently integrated into Fragment.
-
-If you've seen my [talk](https://www.youtube.com/watch?v=VITu_wp4pNc&list=PLqUf0A_J96n7NSfEUMjISZJPH4A-RIhta&index=6) from Droidcon Montreal, you'll know that I like to build libraries from the outside in, so first we need to define our API.
+I like to build libraries from the outside in<sup><a href="#sub-1">1</a></sup>, so first we need to define our API.
 
 ```java
 public interface InAppHelper {
@@ -50,7 +56,7 @@ public interface InAppHelper {
 }
 ```
 
-Each of these three method's underlying implementation in OpenIAB works a little bit differently. `setup()` uses a standard Listener callback interface, `queryInventory()` can be done synchronously, but we can't use `Observable.just()` since it throws a non-Runtime Exception which must be caught, and `purchase()` uses a listener, but also relies on `startActivityForResult`.
+Each of these three method's underlying implementation in OpenIAB works a little bit differently. `setup()` uses a standard Listener callback interface, `queryInventory()` can be done synchronously but throws an Exception which must be caught, and `purchase()` uses a listener, but also relies on `startActivityForResult`.
 
 Let's take each of these one at a time to see how we can wrap each type of method call with an RxJava Observable.
 
@@ -63,35 +69,17 @@ Though I don't use it in production, I'm using Java 8 lambdas in the code exampl
 When wrapping method calls that use listeners, things like `Observable.just()` don't work, since there is usually no return value. Therefore, we have to use `Observable.create()` so that we can pass the result of the Listener callback to the subscriber.
 
 ```java
-public Observable<Object> wrappedListener() {
-  return Observable.create((subscriber) -> {
-    helper.listenerMethod((result) -> {
-        if (result.isSuccess()) {
-          subscriber.onNext(result.getData());
-          subscriber.onCompleted();
-        } else {
-          subscriber.onError(result.getError());
-        }
-      }
-    });
-  });
-}
-```
-
-To take this step by step, you can see in the `wrappedListener()` method that we are using `Observable.create()` to create an Observable, and in the `OnSubscribe` block we call our listener based method, **providing our own Listener implementation** that passes results to the subscriber accordingly.
-
-In our OpenIAB example, this method looks like this:
-
-```java
 public Observable<Void> setup() {
-  return Observable.create((subscriber) -> {
+  return Observable.create(subscriber -> {
     if (!helper.setupSuccessful()) {
-      helper.startSetup((result) -> {
+      helper.startSetup(result -> {
+        if (subscriber.isUnsubscribed()) return;
+    
         if (result.isSuccess()) {
           subscriber.onNext(null);
           subscriber.onCompleted();
         } else {
-          subscriber.onError
+          subscriber.onError(new IabException(result.getMessage()));
         }
       });
     } else {
@@ -102,45 +90,33 @@ public Observable<Void> setup() {
 }
 ```
 
-As you can see, we call the `iabHelper.startSetup()` method inside our OnSubscribe class, passing our own `OnIabSetupFinishedListener` implementation that passes the result to the subscriber accordingly.
+To take this step by step, you can see in the `setup()` method that we are using `Observable.create()` to create an Observable, and in the `OnSubscribe` block we call our listener based method, **providing our own Listener implementation** that passes results to the subscriber accordingly.
 
-Notice that we can easily bypass the asynchronous call if the helper is already set up.
+In this case, that translates to calling the `helper.startSetup()` method inside our OnSubscribe class, passing our own `OnIabSetupFinishedListener` implementation that passes the result to the subscriber accordingly.
+
+Since the listener will always be called, even if the subscriber no longer cares, we must first check `subscriber.isUnsubscribed()` to avoid sending messages no one cares about.
+
+Notice that we can easily bypass the expensive `startSetup()` call if the helper is already set up by checking `helper.setupSuccessful()`. In that case we can call `subscriber.onNext()` directly.
 
 ## Wrapping Synchronous Methods That Throw Exceptions
 
-The second method we have to implement, `queryInventory()`, can be done as a synchronous call, but we can't use `Observable.create()` because the `IabException` it throws isn't a `RuntimeException`, so it must be caught.
+The second method we have to implement, `queryInventory()`, can be done as a synchronous call, but we can't use `Observable.just()` because the `IabException` it throws isn't a `RuntimeException`, so it must be caught.
 
-To accomplish this, we take a very similar approach as before, using `Observable.onCreate()`, but we simply return the result, and handle the exception accordingly.
-
-```java
-public Observable<Object> wrappedThrower() {
-  return Observable.create((subscriber) -> {
-    try {
-      subscriber.onNext(helper.methodThatThrows());
-      subscriber.onCompleted();
-    } catch (Exception e) {
-      subscriber.onError(e);
-    }
-  });
-}
-```
-
-This is a pretty simple case. One thing to note is that calling `subscriber.onError()` might not be the best approach. If the exception is recoverable, then you should call `subscriber.onNext()` with some other value. Remember, `onError()` should only be called when the subscription is no longer usable.
-
-In our OpenIAB library, this solution looks like this:
+To accomplish this, we can easily use `Observable.defer()`, surround the synchronous call in a try-catch, and return either `Observable.just()` or `Observable.error()`, depending on the result.
 
 ```java
 public Observable<Inventory> queryInventory(final List<String> skus) {
-  return Observable.create((subscriber) -> {
+  return Observable.defer(() -> {
     try {
-      subscriber.onNext(helper.queryInventory(skus));
-      subscriber.onCompleted();
+      return Observable.just(helper.queryInventory(skus));
     } catch (IabException e) {
-      subscriber.onError(e);
+      return Observable.error(e);
     }
   });
 }
 ```
+
+This is a pretty simple case. One thing to note is that returning `Observable.error()` might not be the best approach. If the exception is recoverable, then you should return a useable Observable with some other value. Remember, `onError()` should only be called when the subscription is no longer usable.
 
 ## Wrapping Methods That User Listeners and Activity Results
 
@@ -150,8 +126,10 @@ Since this is just about the same as our original Listener example, we'll go str
 
 ```java
 public Observable<Purchase> purchase(final String sku) {
-  return Observable.create((subscriber) -> {
+  return Observable.create(subscriber -> {
     helper.launchPurchaseFlow(activity, sku, REQUEST_CODE_PURCHASE, (result, info) -> {
+      if (subscriber.isUnsubscribed()) return;
+
       if (result.isSuccess() || result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
         subscriber.onNext(info);
         subscriber.onCompleted();
@@ -169,8 +147,12 @@ public boolean handleActivityResult(int requestCode, int resultCode, Intent data
 
 As you can see, our `handleActivityResult()` method simply passed the result through to the IabHelper to handle. If the activity result matches our request, the Listener we created will be called, which in turn calls our subscriber methods.
 
+Again, we need to be sure to check `subscriber.isUnsubscribed()` to ensure we still have someone who cares about the result.
+
 ## Rx Everywhere
 
 These are just a few examples showing how to wrap existing libraries in RxJava. That should help you consistently use Functional Reactive Programming throughout your Android apps, and take advantage of some of the many benefits.
 
 After some cleanup, I'll get the full code to my RxOpenIAB wrapper on Github for you to see.
+
+<sup id="sub-1">1</sup> See my [talk](https://www.youtube.com/watch?v=VITu_wp4pNc&list=PLqUf0A_J96n7NSfEUMjISZJPH4A-RIhta&index=6) from Droidcon Montreal for more on architecting libraries
