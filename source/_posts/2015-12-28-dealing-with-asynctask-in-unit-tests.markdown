@@ -42,6 +42,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
 
 Now that I have this in my `src/test` source set, any subclass of `android.os.AsyncTask` in my project will actually be subclassing this synchronous implementation only while my tests are running, making my test code much simpler.
 
+This doesn't just apply to AsyncTask, and is very similar to the approach Google took for dependency injection in a recent [code lab](https://github.com/googlecodelabs/android-testing).
+
 ## A Few Words of Caution
 
 There are a few thing to watch out for with this approach.
